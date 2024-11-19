@@ -1,0 +1,61 @@
+<div class="post-container mb-4" style="max-width: 600px; margin: auto; background-color: #fff;">
+  <div class="card shadow-sm border-light rounded">
+    <div class="card-body">
+      <% if @post.images.attached? %>
+        <div class="image-container mb-3 text-center">
+          <% @post.images.each do |image| %>
+            <%= image_tag(image, class: "post-image img-fluid", data: { toggle: "modal", target: "#imageModal", image_url: url_for(image) }) %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="no-image text-muted text-center">No image available</p>
+      <% end %>
+
+      <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="imageModalLabel">Imagen</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img id="modal-image" class="img-fluid w-100" src="" alt="Imagen">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="post-description text-center" style="font-size: 1.1rem; color: #555;"><%= @post.description %></p>
+
+      <div class="col-12 text-center">
+        <p class="post-owner-email text-muted" style="font-size: 1rem;">Email: <%= @post.user.email %></p>
+      </div>
+
+      <div class="post-links text-center mt-3">
+        <% if @post.user == current_user %>
+          <div class="d-flex justify-content-center gap-3">
+            <%= button_to @post, method: :delete, data: { confirm: "¿Estás seguro de que quieres eliminar este post?" }, class: "btn btn-danger btn-sm" do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+            <%= link_to edit_post_path(@post), class: "btn btn-warning btn-sm" do %>
+              <i class="fas fa-pencil-alt"></i>
+            <% end %>
+          </div>
+        <% end %>
+        <%= link_to posts_path, class: "btn btn-secondary btn-sm mt-3" do %>
+          <i class="fas fa-arrow-left"></i>  Regresar
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.post-image').forEach(function(imgElement) {
+    imgElement.addEventListener('click', function () {
+      var imageUrl = this.getAttribute('data-image-url');
+      var modalImage = document.getElementById('modal-image');
+      modalImage.src = imageUrl;
+    });
+  });
+</script>

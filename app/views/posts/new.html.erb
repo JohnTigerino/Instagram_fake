@@ -1,0 +1,53 @@
+<div class="post-container mb-4">
+  <div class="card shadow-sm border-light rounded" style="max-width: 600px; margin: auto; background-color: #fff;">
+    <div class="card-body">
+      <h1 class="text-center mb-4">New Post</h1>
+
+      <% if @post.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if flash[:success] %>
+        <div class="alert alert-success">
+          <%= flash[:success] %>
+        </div>
+      <% elsif flash[:error] %>
+        <div class="alert alert-danger">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+
+      <%= form_with(model: @post, local: true, html: { multipart: true, class: "form-group" }) do |form| %>
+        <div class="form-group mb-3">
+          <%= form.label :description, class: "form-label fw-bold" %>
+          <%= form.text_area :description, class: "form-control", rows: 4 %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= form.label :images, class: "form-label fw-bold" %>
+          <%= form.file_field :images, multiple: true, class: "form-control" %>
+          <p class="form-text text-muted">Puedes subir múltiples imágenes.</p>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <%= form.submit class: "btn btn-primary d-flex align-items-center gap-2" do %>
+            <i class="fas fa-plus"></i> Create Post
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-3">
+        <%= link_to posts_path, class: "btn btn-secondary btn-small d-flex align-items-center gap-2" do %>
+          <i class="fas fa-arrow-left"></i>  Regresar
+        <% end %>      
+      </div>
+
+    </div>
+  </div>
+</div>

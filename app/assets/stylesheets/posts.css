@@ -1,0 +1,75 @@
+body {
+  background: linear-gradient(
+    135deg, 
+    #feda75, /* Amarillo */
+    #fa7e1e, /* Naranja */
+    #d62976, /* Rosa */
+    #962fbf, /* Morado */
+    #4f5bd5  /* Azul */
+  );
+}
+
+img {
+  filter: drop-shadow(
+    0 0 10px rgba(0, 0, 0, .8)
+  )
+}
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre imágenes */
+  }
+  
+  .post-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .no-image {
+    color: #666;
+    font-style: italic;
+  }
+  
+  .post-description {
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+  }
+  
+  .post-links {
+    margin-top: 10px;
+  }
+  
+  .link {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+  }
+  
+  .link:hover {
+    color: #0056b3; /* Color en hover */
+  }
+  
+  .destroy-link {
+    color: #dc3545; /* Color para el link de eliminar */
+  }
+  
+  .destroy-link:hover {
+    color: #c82333; /* Color en hover para eliminar */
+  }
+  
+  .edit-link {
+    color: #28a745; /* Color para el link de editar */
+  }
+  
+  .edit-link:hover {
+    color: #218838; /* Color en hover para editar */
+  }
+  .btn-small {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  

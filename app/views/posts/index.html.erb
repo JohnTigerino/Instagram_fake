@@ -1,0 +1,53 @@
+<% @posts.each do |post| %>
+  <% user_name = post.user ? post.user.email.split('@').first : "Usuario no disponible" %> <!-- Obtén el nombre de usuario -->
+
+  <!-- Contenedor principal de la publicación -->
+  <div class="post-container mb-4" style="border: none; padding: 0; max-width: 600px; margin: auto; background-color: #fff;">
+
+    <!-- Nombre de usuario en la parte superior -->
+    <div class="text-left px-3 py-2" style="border-bottom: 1px solid #ddd;">
+      <p class="post-owner-email" style="font-size: 1rem; font-weight: bold; margin: 0;"><%= user_name %></p>
+    </div>
+
+    <!-- Contenedor de la imagen -->
+    <% if post.images.attached? %>
+      <div class="text-center">
+        <% post.images.each do |image| %>
+          <%= image_tag(image, class: "post-image img-fluid", data: { toggle: "modal", target: "#imageModal", image_url: url_for(image) }) %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="no-image text-muted text-center">No image available</p>
+    <% end %>
+
+    <!-- Contenedor de la descripción y nombre de usuario debajo de la imagen -->
+    <div class="px-3 py-2">
+      <div class="d-flex align-items-center" style="gap: 8px; margin-top: 5px;">
+        <p class="post-owner-email" style="font-size: 1rem; font-weight: bold; margin: 0;"><%= user_name %></p>
+        <p class="post-description" style="font-size: 1rem; color: #555; margin: 0;"><%= post.description %></p>
+      </div>
+    </div>
+
+    <!-- Botones para acciones (editar, eliminar, mostrar) -->
+    <div class="text-center py-2">
+      <% if post.user == current_user %>
+        <div class="d-flex justify-content-center gap-2">
+          <%= button_to post, method: :delete, data: { confirm: "¿Estás seguro de que quieres eliminar este post?" }, class: "btn btn-danger btn-sm" do %>
+            <i class="fas fa-trash-alt"></i> <!-- Ícono de bote de basura -->
+          <% end %>
+          <%= link_to edit_post_path(post), class: "btn btn-warning btn-sm" do %>
+            <i class="fas fa-pencil-alt"></i> <!-- Ícono de lápiz para editar -->
+          <% end %>
+          <%= link_to post, class: "btn btn-info btn-sm" do %>
+            <i class="fas fa-eye"></i> <!-- Ícono de ojo para ver -->
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to post, class: "btn btn-info btn-sm" do %>
+          <i class="fas fa-eye"></i> <!-- Ícono de ojo para ver -->
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center align-items-center">
+  <div class="login-image">
+    <%= image_tag "Diseño_sin_título-removebg-preview.png", alt: "Login Image", style: "width: 300px;" %>
+  </div>
+  <div class="login-form ml-4">
+    <h2>Login</h2>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
